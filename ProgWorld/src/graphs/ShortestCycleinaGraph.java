@@ -63,7 +63,7 @@ public class ShortestCycleinaGraph {
     }
 
     public static void main(String[] args) {
-        int[][] edges = {{0,1},{1,2},{2,0},{3,4},{4,5},{5,6},{6,3}};
-        System.out.println(findShortestCycle(37,edges));
+            int[][] edges = {{0,1},{1,2},{2,0},{3,4},{4,5},{5,6},{6,3}};
+            System.out.println(findShortestCycle(37,edges));
     }
 }
