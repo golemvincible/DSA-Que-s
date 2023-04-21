@@ -1,5 +1,5 @@
-package graphs;
 
+package src.graphs;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +30,7 @@ public class KruskalAlgorithm {
             edge.add(temp);
         }
         Collections.sort(edge);
-        DisjointSet ds = new DisjointSet(V);
+        graphs.DisjointSet ds = new graphs.DisjointSet(V);
         int mstwt=0;
 
         for (int i = 0; i < edge.size(); i++) {

@@ -1,5 +1,5 @@
 package trees.binarytrees;
-
+import trees.binarytrees.Node;
 public class SameTree {
     public static boolean isSameTree(Node p, Node q) {
         if(p==null && q==null)
@@ -21,7 +21,7 @@ public class SameTree {
         root1.right.left = new Node(4);
         root1.right.right = new Node(5);
 
-        Node root2 = new Node(1);
+        trees.binarytrees.Node root2 = new trees.binarytrees.Node(1);
         root2.left = new Node(2);
         root2.right = new Node(3);
         root2.right.left = new Node(4);
