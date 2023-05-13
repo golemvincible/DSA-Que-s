@@ -1,38 +1,41 @@
 package trees.binarytrees;
 import java.util.*;
-
+import trees.binarytrees.Node;
+import trees.binarytrees.Pair;
+class Pair2{
+    int y;
+    Node node;
+    Pair2(int y,Node node){
+        this.y=y;
+        this.node=node;
+    }
+}
 public class BottomViewBT {
     public static ArrayList <Integer> bottomView(Node root)
     {
-        Queue<Pair> q = new LinkedList<>();
+        // Code here
+        TreeMap<Integer,Integer> m= new TreeMap<>();
+        Queue<Pair2> q = new LinkedList<>();
 
-        TreeMap<Integer,Integer> m = new TreeMap<>();
-
-        q.offer(new Pair(root,0));
+        q.offer(new Pair2(0,root));
 
         while(!q.isEmpty()){
-            Node node = q.peek().node;
-            int x = q.peek().x;
-            q.remove();
+            Pair2 p = q.poll();
 
-            // x-> vertical
+            int y = p.y;
+            Node n = p.node;
 
-            m.put(x,node.val);
+            //opposite of top view we need last values for every y coordinate
+            m.put(y,n.val);
 
+            if(n.left!=null)
+                q.offer(new Pair2(y-1,n.left));
+            if(n.right!=null)
+                q.offer(new Pair2(y+1,n.right));
 
-            if(node.left!=null){
-                q.offer(new Pair(node.left,x-1));
-            }
-            if(node.right!=null){
-                q.offer(new Pair(node.right,x+1));
-            }
         }
 
-        ArrayList<Integer> bottomview = new ArrayList<>();
-        for(Integer it:m.values()){
-            bottomview.add(it);
-        }
-        return bottomview;
+        return new ArrayList<Integer>(m.values());
     }
     public static void main(String[] args) {
         Node root = new Node(1);
