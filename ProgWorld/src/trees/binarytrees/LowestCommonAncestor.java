@@ -1,13 +1,29 @@
 package trees.binarytrees;
 import java.util.*;
+import trees.binarytrees.Node;
 public class LowestCommonAncestor {
     private static Node util(Node root, Node p, Node q){
         if(root==null || root==p || root==q)
             return root;
+
+        //tracing the path from root to p or q
+
+        /*
+            * we will go both sides i.e. left as well as right
+            * continue till we find p or q
+            * if we found p on left then we will search for q on right
+            * because if q is also on the left and we got p already that means
+              p is our lca (if both p and q are on the same side of the tree then whoever
+              comes first is lca)
+            * if p and q are on the oppsite side of tree then root is lca
+        */
+
         Node left = util(root.left,p,q);
         Node right = util(root.right,p,q);
         if(left!=null && right!=null)
             return root;
+
+        //only one or both are null
         else if(left!=null)
             return left;
         return right;
