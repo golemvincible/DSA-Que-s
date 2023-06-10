@@ -1,33 +1,45 @@
 package trees.binarytrees;
-
+import trees.binarytrees.Node;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BinaryTreefromInorderandPostorderTraversal {
-    private static Node buildingTree(int[] inorder, int[] postorder,int instart,int inend,int poststart,int postend,HashMap<Integer,Integer> index){
-        if(poststart<0 || instart>inend)
+    private static Map<Integer,Integer> mark(int[] inorder){
+
+        Map<Integer,Integer> m = new HashMap<>();
+
+        for(int i=0;i<inorder.length;i++)
+            m.put(inorder[i],i);
+
+        return m;
+    }
+    private static Node buildingTree(int[] inorder, int[] postorder,Map<Integer,Integer> m,int inStart,int inEnd,int postStart){
+        if(postStart<0 || inStart>inEnd)
             return null;
-        int curr = postorder[poststart];
-        Node node = new Node(curr);
-        int pos = index.get(curr);
-        int size=inend-pos;
 
-        node.right= buildingTree(inorder,postorder,pos+1,inend,poststart-1,poststart-size,index);
-        node.left= buildingTree(inorder,postorder,instart,pos-1,poststart-size-1,postend,index);
+        Node root = new Node(postorder[postStart]);
 
-        return node;
+        int inInd = m.get(postorder[postStart]);
+        int numRight = inEnd-inInd;   // numbers on the right side
+
+        root.right = buildingTree(inorder,postorder,m,inInd+1,inEnd,postStart-1);
+        root.left = buildingTree(inorder,postorder,m,inStart,inInd-1,postStart-numRight-1);
+
+        return root;
     }
     public static Node buildTree(int[] inorder, int[] postorder) {
-        HashMap<Integer,Integer> index = new HashMap<>();
-        for (int i = 0; i < inorder.length; i++) {
-            index.put(inorder[i],i);
-        }
-        return buildingTree(inorder,postorder,0,inorder.length-1, postorder.length-1,0,index);
-    }
+        Map<Integer,Integer> m = mark(inorder);
 
+        //inStart -> postorder.length-1
+        //inEnd -> postorder[0]
+        //postStart -> postorder.length-1
+
+        return buildingTree(inorder,postorder,m,0,postorder.length-1,postorder.length-1);
+    }
     public static void main(String[] args) {
         int[] postorder={4,5,2,6,8,3,1};
         int[] inorder={4,2,5,1,6,3,8};
         Node root = buildTree(inorder,postorder);
-        System.out.println(LevelOrderTraversal.levelOrder(root));
+        System.out.println(trees.binarytrees.LevelOrderTraversal.levelOrder(root));
     }
 }

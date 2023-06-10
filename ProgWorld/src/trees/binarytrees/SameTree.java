@@ -6,12 +6,13 @@ public class SameTree {
             return true;
         else if(p==null || q==null)
             return false;
-        // agar dono trees ke node ki value same h to hum age check krenge
-        if(p.val==q.val){
-            return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
-        }
-        //hum iss condition pr aa gye h mtlb dono trees ki value same nhi h isliye hum false return kr denge
-        return false;
+        if(p.val!=q.val)
+            return false;
+        /*
+        * Agar dono true honge to true
+        * agar 1 bhi condition false ho gyi to false return kr denge
+        */
+        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
 
     public static void main(String[] args) {

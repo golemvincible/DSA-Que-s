@@ -1,38 +1,53 @@
-package trees.binarytrees;
+package src.trees.binarytrees;
+import trees.binarytrees.Node;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BinaryTreefromPreorderandInorderTraversal {
-    private static Node buildingTree(int[] preorder, int[] inorder, int prestart, int preend, int instart, int inend, HashMap<Integer, Integer> index){
-        /*preorder start 0 se horha h aur jaa rha h preorder.length tk aur hum har baar preorder ka
-        index ++ kr rhe h i.e. prestart ko ++ kr rhe h to ek tym pr vo preorder.length tk chala jayega
-        tb hume null return krna h aur humara tree ready ho jayega
-         */
-        if(prestart>preend)
-            return null;
+    private static Map<Integer,Integer> mark(int[] inorder){
 
-        int curr = preorder[prestart];
-        Node node = new Node(curr);
+        Map<Integer,Integer> m = new HashMap<>();
 
-        int pos = index.get(curr);
-        int size = pos-instart;
-        node.left=buildingTree(preorder,inorder,prestart+1,prestart+size,instart,pos-1,index);
-        node.right=buildingTree(preorder,inorder,prestart+size+1,preend,pos+1,inend,index);
+        for(int i=0;i<inorder.length;i++)
+            m.put(inorder[i],i);
 
-        return node;
+        return m;
     }
-    public static Node buildTree(int[] preorder, int[] inorder) {
-        HashMap<Integer,Integer> index = new HashMap<>();
-        for (int i = 0; i < inorder.length; i++) {
-            index.put(inorder[i],i);
+
+    private static Node buildingTree(int[] preorder, int[] inorder,Map<Integer,Integer> m,int preStart,int inStart,int inEnd){
+        if(preStart>preorder.length || inStart>inEnd){
+            return null;
         }
-        return buildingTree(preorder,inorder,0,preorder.length-1,0, inorder.length-1,index);
+
+        Node root = new Node(preorder[preStart]);
+
+        //index of just made root in inorder
+        int inInd = m.get(preorder[preStart]);
+
+        //numbers on the left
+        int numsLeft = inInd-inStart;
+
+        root.left = buildingTree(preorder,inorder,m,preStart+1,inStart,inInd-1);
+        root.right = buildingTree(preorder,inorder,m,preStart+numsLeft+1,inInd+1,inEnd);
+
+        return root;
+    }
+
+    public static Node buildTree(int[] preorder, int[] inorder) {
+        Map<Integer,Integer> m = mark(inorder);
+
+
+        //contructing the tree from inorder and preorder
+
+        //so we need to keep track of their indexes thats why we took inorderStart, inorderEnd,preorderStart
+        return buildingTree(preorder,inorder,m,0,0,preorder.length-1);
     }
 
     public static void main(String[] args) {
         int[] preorder={1,2,4,5,3,6,7};
         int[] inorder={4,2,5,1,6,3,7};
         Node root = buildTree(preorder,inorder);
-        System.out.println(LevelOrderTraversal.levelOrder(root));
+        System.out.println(trees.binarytrees.LevelOrderTraversal.levelOrder(root));
     }
 }

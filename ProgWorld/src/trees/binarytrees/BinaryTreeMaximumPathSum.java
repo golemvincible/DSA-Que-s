@@ -1,4 +1,5 @@
 package trees.binarytrees;
+import trees.binarytrees.Node;
 
 public class BinaryTreeMaximumPathSum {
     int maxSum=Integer.MIN_VALUE;
@@ -6,11 +7,18 @@ public class BinaryTreeMaximumPathSum {
         if(root==null)
             return 0;
 
+
         int lefts = Math.max(0,findingPath(root.left));
         int rights = Math.max(0,findingPath(root.right));
 
-        maxSum=Math.max(maxSum,root.val+lefts+rights);
 
+        maxSum=Math.max(maxSum,root.val+lefts+rights);
+        /*
+        * maxValue is the value which recording whether this current root is the final root,
+        * so we use left + right + node.val. But to the upper layer(after return statement),
+        * we cannot choose both left and right brunches, so we need to select the larger one,
+        * so we use max(left, right) + node.val to prune the lower brunch.
+        */
         return root.val+Math.max(lefts,rights);
     }
     public int maxPathSum(Node root) {
