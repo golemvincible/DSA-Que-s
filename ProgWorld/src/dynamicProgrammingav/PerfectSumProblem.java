@@ -41,7 +41,7 @@ public class PerfectSumProblem {
         }
         return dp;
     }
-    public static int perfectSum(int arr[],int n, int sum)
+    public static int perfectSum(int[] arr,int n, int sum)
     {
         int[][] dp = new int[n+1][sum+1];
         dp = fill(dp);
