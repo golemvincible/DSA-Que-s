@@ -25,6 +25,7 @@ public class FindScoreofanArrayAfterMarkingAllElements {
             else
                 return a.ind-b.ind;
         });
+//        PriorityQueue<Pair> q = new PriorityQueue<>((x,y)->y.val-x.val);
 
         for(int i=0;i<n;i++){
             q.offer(new Pair(i,nums[i]));

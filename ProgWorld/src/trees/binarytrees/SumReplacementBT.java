@@ -1,8 +1,8 @@
-package trees.binarytrees;
+package src.trees.binarytrees;
 
 public class SumReplacementBT {
     static int max=0;
-    private static void sumReplace(Node root){
+    private static void sumReplace(trees.binarytrees.Node root){
         if(root==null)
             return;
         sumReplace(root.left);
@@ -15,15 +15,15 @@ public class SumReplacementBT {
 
     }
     public static void main(String[] args) {
-        Node root = new Node(1);
-        root.left = new Node(2);
-        root.right = new Node(3);
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
-        root.right.left = new Node(6);
-        root.right.right = new Node(7);
+        trees.binarytrees.Node root = new trees.binarytrees.Node(1);
+        root.left = new trees.binarytrees.Node(2);
+        root.right = new trees.binarytrees.Node(3);
+        root.left.left = new trees.binarytrees.Node(4);
+        root.left.right = new trees.binarytrees.Node(5);
+        root.right.left = new trees.binarytrees.Node(6);
+        root.right.right = new trees.binarytrees.Node(7);
 
         sumReplace(root);
-        System.out.println(LevelOrderTraversal.levelOrder(root));
+        System.out.println(trees.binarytrees.LevelOrderTraversal.levelOrder(root));
     }
 }

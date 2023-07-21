@@ -1,4 +1,5 @@
-package trees.binarytrees;
+package src.trees.binarytrees;
+import trees.binarytrees.Node;
 
 import java.util.*;
 
@@ -46,7 +47,7 @@ public class ZigZagTraversalofBinaryTree {
         root.right.right = new Node(7);
         List<List<Integer>> ans = new ArrayList<>();
         System.out.println("Level Order Traversal of Binary Tree ");
-        System.out.println(LevelOrderTraversal.levelOrder(root));
+        System.out.println(trees.binarytrees.LevelOrderTraversal.levelOrder(root));
         System.out.println("Zig Zag Traversal of Binary Tree ");
         System.out.println(zigzagLevelOrder(root));
     }

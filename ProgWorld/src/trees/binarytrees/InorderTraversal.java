@@ -1,5 +1,5 @@
-package trees.binarytrees;
-
+package src.trees.binarytrees;
+import trees.binarytrees.Node;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +25,11 @@ public class InorderTraversal {
         root.left.left = new Node(4);
         root.left.right = new Node(5);
         root.right.left = new Node(6);
-        root.right.right = new Node(7);
+        root.right.left.left = new Node(7);
+        root.right.left.left.left = new Node(8);
+        root.right.left.left.right = new Node(9);
+
+
         System.out.println(inorderTraversal(root));
     }
 
